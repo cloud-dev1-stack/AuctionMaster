@@ -1,0 +1,94 @@
+# AuctionMaster configuration
+
+storage:
+  # sqlite -> single-server local file
+  # mysql  -> shared database, required for cross-server auction houses (e.g. via a Bungee/Velocity network)
+  type: sqlite
+  mysql:
+    host: localhost
+    port: 3306
+    database: auctionmaster
+    username: root
+    password: ""
+    useSSL: false
+    pool-size: 8
+
+network:
+  # A unique id for this server. Only matters when storage.type is mysql and you run
+  # multiple servers sharing one auction house - used for logging/origin tracking only.
+  server-id: "server-1"
+
+economy:
+  tax-percent: 5.0
+  minimum-price: 1.0
+  maximum-price: 1000000.0
+
+listings:
+  max-active-per-player: 10
+  default-duration-hours: 48
+  # Extra listing slots granted to players holding these permissions, stacking with the base
+  # limit above. Shown as unlocked vs. locked (barrier) slots in /ah listings.
+  tier-bonus-permissions:
+    auctionmaster.tier.vip: 5
+    auctionmaster.tier.mvp: 10
+  bidding:
+    enabled: true
+    minimum-starting-bid: 1.0
+    minimum-increment-percent: 5.0
+    # Extend the auction if a bid lands in the last N seconds, to prevent snipe-and-vanish.
+    anti-snipe-seconds: 30
+    anti-snipe-extension-seconds: 60
+
+gui:
+  title: "&8Auction House"
+  rows: 6
+  items-per-page: 45
+  # When false (default), clicking a Buy Now listing opens a Confirm Purchase GUI first.
+  # Players can flip their own preference with /ah togglequickbuy.
+  quick-buy-default: false
+  # When false (default), /ah sell <price> still requires typing the price in chat via
+  # the Insert Item -> Confirm Listing GUI when no price args are given on the command.
+  # Players can flip their own preference with /ah togglequicksell.
+  quick-sell-default: false
+
+notifications:
+  broadcast-sales-above: 10000
+  discord:
+    enabled: false
+    webhook-url: ""
+    # Only sales/won-auctions at or above this price trigger a Discord message
+    minimum-price: 5000
+
+history:
+  keep-days: 30
+
+performance:
+  # How often the in-memory active-listings cache refreshes from the database. Browsing the
+  # auction house always reads from this cache instead of hitting the database directly, so
+  # raising this trades a bit of staleness for less database load - mainly relevant to busy
+  # cross-server (MySQL) setups where other servers can change listings between refreshes.
+  listings-cache-refresh-seconds: 5
+
+redis:
+  # Optional. Only meaningful alongside storage.type: mysql - lets multiple servers sharing
+  # one auction house notify each other of sales/new listings immediately instead of waiting
+  # on the next polling cycle. If disabled or unreachable, everything still works via MySQL
+  # alone with slightly delayed visibility between servers.
+  enabled: false
+  host: localhost
+  port: 6379
+  password: ""
+  channel: "auctionmaster:events"
+  broadcast-cross-server-sales: true
+
+auction-alerts:
+  default-enabled: false
+  includes:
+    listing-sold: true
+    offline-sales-summary: true
+    listing-expired: true
+    offline-expirations-summary: true
+    payout-summary: true
+  toggle-feedback:
+    chat-enabled: true
+    action-bar-enabled: true

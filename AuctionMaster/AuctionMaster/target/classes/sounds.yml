@@ -1,0 +1,17 @@
+seller-sale-alert:
+  enabled: true
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  volume: '1.0'
+  pitch: '1.0'
+
+alert-toggle-enabled:
+  enabled: true
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  volume: '0.7'
+  pitch: '1.2'
+
+alert-toggle-disabled:
+  enabled: true
+  sound: UI_BUTTON_CLICK
+  volume: '0.8'
+  pitch: '0.8'

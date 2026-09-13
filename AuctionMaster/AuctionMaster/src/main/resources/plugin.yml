@@ -1,0 +1,46 @@
+name: AuctionMaster
+version: '${project.version}'
+main: clouddev1stack.AuctionMaster
+api-version: '1.21'
+author: ravirai
+softdepend: [Vault, PlaceholderAPI]
+
+commands:
+  ah:
+    aliases: [auctionhouse, auction]
+    description: Open the auction house GUI
+    usage: /ah [sell|search <query>|listings|collect|history|cancel <id>|togglequickbuy|togglequicksell]
+  ahadmin:
+    description: Admin auction house management
+    permission: auctionmaster.admin
+    usage: /ahadmin <reload|remove|cancelall|forceexpire|recovery|status|lock|unlock>
+  toggleahalerts:
+    aliases: [toggleauctionalerts]
+    description: Toggle your auction sold/expired alerts
+    usage: /toggleahalerts
+
+permissions:
+  auctionmaster.sell:
+    description: Allows listing items for sale
+    default: true
+  auctionmaster.buy:
+    description: Allows buying listed items
+    default: true
+  auctionmaster.bid:
+    description: Allows placing bids on auctions
+    default: true
+  auctionmaster.admin:
+    description: Allows admin management commands
+    default: op
+  auctionmaster.bypass.limit:
+    description: Bypasses the max active listings limit
+    default: op
+  auctionmaster.bypass.tax:
+    description: Bypasses the sale tax
+    default: false
+  auctionmaster.tier.vip:
+    description: Grants bonus active listing slots (see config.yml listings.tier-bonus-permissions)
+    default: false
+  auctionmaster.tier.mvp:
+    description: Grants bonus active listing slots (see config.yml listings.tier-bonus-permissions)
+    default: false

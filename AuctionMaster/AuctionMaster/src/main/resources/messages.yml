@@ -1,0 +1,20 @@
+# AuctionMaster messages. Supports legacy '&' codes and hex codes in '&#RRGGBB' format.
+# {prefix} in any message is replaced with the value below.
+
+prefix: '&8[&6Auction&8] &r'
+
+alerts:
+  enabled: '{prefix}&#37F699✔ &r&#FFFFFFAuction alerts enabled.'
+  disabled: '{prefix}&#FF780C⚠ &r&#FFFFFFAuction alerts disabled.'
+  enabled-action-bar: '&#37F699✔ &r&#FFFFFFAuction alerts enabled'
+  disabled-action-bar: '&#FF780C⚠ &r&#FFFFFFAuction alerts disabled'
+
+  # Shown immediately when a single listing sells/expires and the seller is online.
+  sold-single: '{prefix}&#37F699✔ &r&#FFFFFFYour listing &e{item} &fx{quantity} &fsold for &a{price}&f.'
+  expired-single: '{prefix}&#FF780C⚠ &r&#FFFFFFYour listing &e{item} &fx{quantity} &fexpired and was returned to your collection box.'
+
+  # Shown on login when auction-alerts.includes.offline-sales-summary /
+  # offline-expirations-summary are true and multiple events queued up while offline.
+  sold-summary: '{prefix}&#37F699✔ &r&#FFFFFFWhile you were away, &e{count} &fof your listings sold for a total of &a{total}&f.'
+  expired-summary: '{prefix}&#FF780C⚠ &r&#FFFFFFWhile you were away, &e{count} &fof your listings expired and were returned to your collection box.'
+  payout-summary: '&7Total payout: &a{total}'
